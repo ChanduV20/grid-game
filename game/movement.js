@@ -35,6 +35,14 @@ function isLockedDoor(row, col) {
     );
 }
 
+// Check Jump power lands on goal 
+function isGoal(row, col){
+    return (
+        state.goal.row == row && 
+        state.goal.col == row
+    );
+}
+
 // Activate falling block
 function activateFallingBlock() {
     if (!state.fallBlock) return;
@@ -79,7 +87,6 @@ function collectItems() {
     ) {
         state.powerUp.isHere = false;
         state.hasPower = true;
-
         playSound("powerup");
     }
 }
@@ -128,6 +135,11 @@ export function movePlayer(rowChange, colChange) {
         // Cannot land on a locked door
         if (isLockedDoor(jumpRow, jumpCol)) {
             return false;
+        }
+
+        // Cannot allow jump direclty to goal 
+        if (isGoal(jumpRow, jumpCol)) {
+            return false ;
         }
 
         // Jump over block
