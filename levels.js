@@ -1,6 +1,7 @@
 export const levels = [
     {
         size: 8,
+        enemy: {row: 7, col: 0},
         lock:false,
         powerUp: { row: 4, col: 0, isHere: true},
         fallBlock: { row: 6, col: 7, steps: 29},
@@ -20,6 +21,7 @@ export const levels = [
     },
     {
         size: 8,
+        enemy: {row: 7, col: 0},
         lock: false,
         powerUp: { row: 4, col: 0, isHere: true},
         fallBlock: { row: 6, col: 7, steps: 30},

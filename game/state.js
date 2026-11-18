@@ -2,6 +2,7 @@
 export const state = {
     currentLevel: 0,
     SIZE: 0,
+    enemy: null,
     player: null,
     goal: null,
     block: [],
@@ -11,6 +12,7 @@ export const state = {
     fallBlock: null,
     powerUp: null,
     won: false,
+    lost: false,
     counter: 0,
     hasPower: false
 };
@@ -18,6 +20,7 @@ export const state = {
 export function resetState(level) {
     state.SIZE = level.size;
 
+    state.enemy = { ...level.enemy };
     state.player = { ...level.player };
     state.goal = { ...level.goal };
 
@@ -36,6 +39,7 @@ export function resetState(level) {
         : null;
 
     state.won = false;
+    state.lost = false;
     state.counter = 0;
     state.hasPower = false;
 }

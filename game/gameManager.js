@@ -48,6 +48,13 @@ export function nextLevel(elements) {
     }
 }
 
+
 export function restartLevel(elements) {
+    const overlay = document.getElementById("caughtOverlay");
+
+    if (overlay) {
+        overlay.remove();
+    }
+
     loadLevel(elements);
 }

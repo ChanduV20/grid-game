@@ -1,39 +1,9 @@
 
 import { state } from "./state.js";
 import { playSound } from "./audio.js";
+import { isEnemyCaughtPlayer, moveEnemy } from "./enemy.js";
+import { isInsideGrid, isBlocked, isBox, isLockedDoor } from "./collision.js";
 
-// Check grid boundaries
-function isInsideGrid(row, col) {
-    return (
-        row >= 0 &&
-        row < state.SIZE &&
-        col >= 0 &&
-        col < state.SIZE
-    );
-}
-
-// Check blocks
-function isBlocked(row, col) {
-    return state.block.some(
-        item => item.row === row && item.col === col
-    );
-}
-
-// Check boxes
-function isBox(row, col) {
-    return state.box.some(
-        item => item.row === row && item.col === col
-    );
-}
-
-// Check locked door
-function isLockedDoor(row, col) {
-    return (
-        state.key[1].row === row &&
-        state.key[1].col === col &&
-        state.lock === false
-    );
-}
 
 // Check Jump power lands on goal 
 function isGoal(row, col){
@@ -95,6 +65,7 @@ function collectItems() {
 export function movePlayer(rowChange, colChange) {
 
     if (state.won) return false;
+    if (state.lost) return false;
 
     let newRow = state.player.row + rowChange;
     let newCol = state.player.col + colChange;
@@ -197,8 +168,11 @@ export function movePlayer(rowChange, colChange) {
     state.player.row = newRow;
     state.player.col = newCol;
 
+    
     state.counter++;
-
+    moveEnemy();
+    
+    
     // Movement sounds
     if (jumped) {
         playSound("jump");
@@ -207,13 +181,13 @@ export function movePlayer(rowChange, colChange) {
     } else {
         playSound("move");
     }
-
+    
     // Update step count
     collectItems();
-
+    
     // Activate falling block
     activateFallingBlock();
-
+    
     // Winning condition
     if (
         state.player.row === state.goal.row &&
@@ -222,6 +196,6 @@ export function movePlayer(rowChange, colChange) {
         state.won = true;
         playSound("win");
     }
-
+    
     return true;
 }

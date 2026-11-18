@@ -95,7 +95,7 @@ h1 {
 
 #grid {
     display: grid;
-
+    position: relative;
     grid-template-columns: repeat(var(--size), minmax(0, 1fr));
     grid-template-rows: repeat(var(--size), minmax(0, 1fr));
 
@@ -118,6 +118,23 @@ h1 {
 
     box-sizing: border-box;
 }
+
+#caughtOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 10px;
+}
+
+#caughtOverlay img {
+    width: 30%;
+    height: 30%;
+    object-fit: contain;
+} 
 
 /* =========================================
    6. ALL GRID CELLS 

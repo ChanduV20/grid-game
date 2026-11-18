@@ -8,7 +8,12 @@ import {
     restartLevel
 } from "./game/gameManager.js";
 
-const elements = {
+import { state } from "./game/state.js";
+
+import { isEnemyCaughtPlayer } from "./game/enemy.js";
+import { playSound } from "./game/audio.js";
+
+export const elements = {
     grid: document.getElementById("grid"),
     message: document.getElementById("message"),
     count: document.getElementById("count"),
@@ -16,6 +21,18 @@ const elements = {
     nextLevelButton: document.getElementById("nextLevel")
 };
 
+export function showOverlay(){
+    state.lost = true;
+            const overlay = document.createElement("div");
+            overlay.id = "caughtOverlay";
+
+            const img = document.createElement("img");
+            img.src = "game\\images\\caught.png";
+            img.alt = "Game Over";
+
+            overlay.appendChild(img);
+            elements.grid.appendChild(overlay);
+}
 // Keyboard controls
 document.addEventListener("keydown", function(event) {
 
@@ -38,7 +55,11 @@ document.addEventListener("keydown", function(event) {
 
     if (moved) {
         updateGame(elements);
-    }
+        if (isEnemyCaughtPlayer()) {
+            showOverlay();
+            playSound("lost");
+        }
+    }   
 });
 
 // Restart
@@ -50,6 +71,7 @@ elements.restartButton.addEventListener("click", function() {
 elements.nextLevelButton.addEventListener("click", function() {
     nextLevel(elements);
 });
+
 
 // Start game
 loadLevel(elements);

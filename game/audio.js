@@ -6,7 +6,8 @@ const sounds = {
     powerup: new Audio("game\\audio\\powerUp.mp3"),
     jump: new Audio("game\\audio\\jump.mp3"),
     fall: new Audio("game\\audio\\fall.mp3"),
-    win: new Audio("game\\audio\\win.mp3")
+    win: new Audio("game\\audio\\win.mp3"),
+    lost: new Audio("game\\audio\\lost.mp3")
 };
 
 // Preload sounds

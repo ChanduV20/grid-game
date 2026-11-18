@@ -33,12 +33,17 @@ export function drawGrid(grid) {
             if (row === state.player.row && col === state.player.col) {
                 cell.textContent = "🙂";
                 cell.classList.add("player");
-
+                
             } else if (row === state.goal.row && col === state.goal.col) {
                 cell.textContent = "⭐";
                 cell.classList.add("goal");
-
-            } else if (
+                
+            } else if( 
+                state.enemy.row === row &&
+                state.enemy.col === col
+            ){
+                cell.textContent = "👮🏻";
+            }else if (
                 row === state.key[0].row &&
                 col === state.key[0].col &&
                 state.lock === false
@@ -71,9 +76,8 @@ export function drawGrid(grid) {
                 if (val >= 0) {
                     cell.textContent = val;
                 }
-            }
 
-            grid.appendChild(cell);
+            }grid.appendChild(cell);
         }
     }
 }
