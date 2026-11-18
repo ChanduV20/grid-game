@@ -68,7 +68,7 @@ export function drawGrid(grid) {
             ) {
                 const val = state.fallBlock.steps - state.counter;
 
-                if (val > 0) {
+                if (val >= 0) {
                     cell.textContent = val;
                 }
             }
