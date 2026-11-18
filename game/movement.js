@@ -39,7 +39,7 @@ function isLockedDoor(row, col) {
 function activateFallingBlock() {
     if (!state.fallBlock) return;
 
-    if (state.counter >= state.fallBlock.steps) {
+    if (state.counter > state.fallBlock.steps) {
 
         const alreadyExists = isBlocked(
             state.fallBlock.row,
