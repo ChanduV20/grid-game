@@ -43,5 +43,7 @@ export function resetState(level) {
     state.lost = false;
     state.counter = 0;
     state.hasPower = false;
-    state.trap = level.traps.map(item => ({ ...item }));
+    state.trap = level.trap
+        ? level.trap.map(item => ({ ...item }))
+        : null;
 }
