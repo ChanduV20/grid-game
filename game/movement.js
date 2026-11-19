@@ -2,7 +2,7 @@
 import { state } from "./state.js";
 import { playSound } from "./audio.js";
 import { isEnemyCaughtPlayer, moveEnemy } from "./enemy.js";
-import { isInsideGrid, isBlocked, isBox, isLockedDoor } from "./collision.js";
+import { isInsideGrid, isBlocked, isBox, isLockedDoor, isEnemy } from "./collision.js";
 
 
 // Check Jump power lands on goal 
@@ -138,6 +138,11 @@ export function movePlayer(rowChange, colChange) {
 
         const newBoxRow = newRow + rowChange;
         const newBoxCol = newCol + colChange;
+
+        // Enemy Collision
+        if (isEnemy(newBoxRow, newBoxCol)){
+            return false;
+        }
 
         // Box boundaries
         if (!isInsideGrid(newBoxRow, newBoxCol)) {

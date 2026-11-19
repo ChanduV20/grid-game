@@ -32,3 +32,11 @@ export function isLockedDoor(row, col) {
         state.lock === false
     );
 }
+
+// Check locked door
+export function isEnemy(row, col) {
+    return (
+        state.enemy.row === row &&
+        state.enemy.col === col
+    );
+}
