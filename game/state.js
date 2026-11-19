@@ -14,7 +14,9 @@ export const state = {
     won: false,
     lost: false,
     counter: 0,
-    hasPower: false
+    hasPower: false, 
+    trap: null,
+    teleport: null
 };
 
 export function resetState(level) {
@@ -42,4 +44,6 @@ export function resetState(level) {
     state.lost = false;
     state.counter = 0;
     state.hasPower = false;
+    state.trap = { ...level.trap}; 
+    state.teleport = { ...level.teleport}; 
 }
