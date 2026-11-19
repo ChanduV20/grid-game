@@ -3,7 +3,7 @@ import { isInsideGrid, isBlocked, isBox, isLockedDoor } from "./collision.js";
 
 // 1. Generate the four neighbouring positions
 function getNeighborCells() {
-    let dxy = [[-1,0],[0,-1],[0,1],[1,0]];
+    let dxy = [[0,0],[-1,0],[0,-1],[0,1],[1,0]];
     let priority = [];
     for (let i=0; i < dxy.length; i++){
         let u = state.enemy.row + dxy[i][0];
