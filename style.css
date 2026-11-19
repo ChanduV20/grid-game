@@ -463,3 +463,8 @@ button:active {
         font-size: 13px;
     }
 }
+
+.cell.highlight {
+    background: rgb(145, 129, 129) !important;
+    border: 2px solid rgb(255, 0, 0);
+}

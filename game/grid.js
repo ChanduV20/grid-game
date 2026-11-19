@@ -30,6 +30,14 @@ export function drawGrid(grid) {
                 continue;
             }
 
+            const isHighlighted = state.highlightCells.some(
+                item => item.row === row && item.col === col
+            );
+
+            if (isHighlighted) {
+                cell.classList.add("highlight");
+            }
+
             if (row === state.player.row && col === state.player.col) {
                 cell.textContent = "🙂";
                 cell.classList.add("player");
@@ -77,7 +85,8 @@ export function drawGrid(grid) {
                     cell.textContent = val;
                 }
 
-            }grid.appendChild(cell);
+            }
+            grid.appendChild(cell);
         }
     }
 }

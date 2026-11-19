@@ -16,6 +16,8 @@ export const state = {
     counter: 0,
     hasPower: false, 
     trap: null,
+    highlightCells: [],
+    highlightTimer: null
 };
 
 export function resetState(level) {
@@ -44,4 +46,6 @@ export function resetState(level) {
     state.counter = 0;
     state.hasPower = false;
     state.trap = level.traps.map(item => ({ ...item }));
+    state.highlightCells = [];
+    state.highlightTimer = null;
 }

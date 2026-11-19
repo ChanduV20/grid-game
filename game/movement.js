@@ -3,7 +3,7 @@ import { state } from "./state.js";
 import { playSound } from "./audio.js";
 import { isEnemyCaughtPlayer, moveEnemy } from "./enemy.js";
 import { isInsideGrid, isBlocked, isBox, isLockedDoor, isEnemy } from "./collision.js";
-
+import { drawGrid } from "./grid.js";
 
 // Check Jump power lands on goal 
 function isGoal(row, col){
@@ -171,27 +171,60 @@ export function movePlayer(rowChange, colChange) {
         pushedBox = true;
     }
 
-    // check for trap cell 
+    
     const trapIndex = state.trap.findIndex(
         item => item.row === newRow && item.col === newCol
     );
 
     if (trapIndex !== -1) {
 
-        let trapCells = [] ; 
-        let noOfTraps = state.trap.length ;
-        for (let i=0; i < noOfTraps ; i++){
-            if(state.trap[i].row === newRow && state.trap[i].col === newCol) continue ;
-            
-            trapCells.push([state.trap[i].row,state.trap[i].col]) ; 
+        // Store original trap position
+        const trapRow = newRow;
+        const trapCol = newCol;
 
+        let trapCells = [];
+
+        for (let i = 0; i < state.trap.length; i++) {
+            if (
+                (state.trap[i].row === trapRow &&
+                state.trap[i].col === trapCol) ||
+                (isBox(state.trap[i].row,state.trap[i].col))
+            ) continue;
+
+            trapCells.push([
+                state.trap[i].row,
+                state.trap[i].col
+            ]);
         }
 
-        const randomIdx = Math.floor(Math.random() * (noOfTraps-1)) + 1;
-        newRow = state.trap[randomIdx].row ; 
-        newCol = state.trap[randomIdx].col ;
-    }
+        if (trapCells.length > 0) {
+            const randomIdx = Math.floor(
+                Math.random() * trapCells.length
+            );
 
+            const destination = {
+                row: trapCells[randomIdx][0],
+                col: trapCells[randomIdx][1]
+            };
+
+            // Highlight original and destination cells
+            state.highlightCells = [
+                { row: trapRow, col: trapCol },
+                { row: destination.row, col: destination.col }
+            ];
+
+            clearTimeout(state.highlightTimer);
+
+            state.highlightTimer = setTimeout(() => {
+                state.highlightCells = [];
+                drawGrid(grid);
+            }, 200);
+
+            // Teleport player
+            newRow = destination.row;
+            newCol = destination.col;
+        }
+    }
 
    
     // Move player
