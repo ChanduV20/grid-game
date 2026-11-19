@@ -37,6 +37,8 @@ export const levels = [
             {row:3,col:5},{row:6,col:2},{row:6,col:4},
             {row:7,col:6}
         ],
-        boxes: []
+        boxes: [],  
+        traps : [] 
+
     }
 ];
