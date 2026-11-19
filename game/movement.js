@@ -9,7 +9,7 @@ import { isInsideGrid, isBlocked, isBox, isLockedDoor } from "./collision.js";
 function isGoal(row, col){
     return (
         state.goal.row == row && 
-        state.goal.col == row
+        state.goal.col == col
     );
 }
 
@@ -78,17 +78,7 @@ export function movePlayer(rowChange, colChange) {
         return false;
     }
 
-    // check for trap cell 
-    if (
-        newRow == state.trap.row && 
-        newCol == state.trap.col
-    ){
-        // Move player
-        state.player.row = state.teleport.row;
-        state.player.col = state.teleport.col;
-        return true ;
-
-    }
+    
 
     // Block collision and jumping
     if (isBlocked(newRow, newCol)) {
@@ -176,6 +166,29 @@ export function movePlayer(rowChange, colChange) {
         pushedBox = true;
     }
 
+    // check for trap cell 
+    const trapIndex = state.trap.findIndex(
+        item => item.row === newRow && item.col === newCol
+    );
+
+    if (trapIndex !== -1) {
+
+        let trapCells = [] ; 
+        let noOfTraps = state.trap.length ;
+        for (let i=0; i < noOfTraps ; i++){
+            if(state.trap[i].row === newRow && state.trap[i].col === newCol) continue ;
+            
+            trapCells.push([state.trap[i].row,state.trap[i].col]) ; 
+
+        }
+
+        const randomIdx = Math.floor(Math.random() * (noOfTraps-1)) + 1;
+        newRow = state.trap[randomIdx].row ; 
+        newCol = state.trap[randomIdx].col ;
+    }
+
+
+   
     // Move player
     state.player.row = newRow;
     state.player.col = newCol;
