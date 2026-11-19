@@ -78,6 +78,18 @@ export function movePlayer(rowChange, colChange) {
         return false;
     }
 
+    // check for trap cell 
+    if (
+        newRow == state.trap.row && 
+        newCol == state.trap.col
+    ){
+        // Move player
+        state.player.row = state.teleport.row;
+        state.player.col = state.teleport.col;
+        return true ;
+
+    }
+
     // Block collision and jumping
     if (isBlocked(newRow, newCol)) {
 
