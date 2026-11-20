@@ -14,7 +14,12 @@ export const elements = {
     message: document.getElementById("message"),
     count: document.getElementById("count"),
     restartButton: document.getElementById("restart"),
-    nextLevelButton: document.getElementById("nextLevel")
+    nextLevelButton: document.getElementById("nextLevel"),
+    showButtons: document.getElementById("showButtons"),
+    left: document.getElementById("left"),
+    right: document.getElementById("right"),
+    up: document.getElementById("up"),
+    down: document.getElementById("left"),
 };
 
 export function showOverlay(){
@@ -29,6 +34,21 @@ export function showOverlay(){
     overlay.appendChild(img);
     elements.grid.appendChild(overlay);
 }
+
+function handleMovement(rowChange, colChange) {
+    const moved = movePlayer(rowChange, colChange);
+
+    if (moved) {
+        updateGame(elements);
+
+        if (isEnemyCaughtPlayer()) {
+            showOverlay();
+            playSound("lost");
+            console.log(state.player, state.enemy);
+        }
+    }
+}
+
 // Keyboard controls
 document.addEventListener("keydown", function(event) {
 
@@ -47,16 +67,33 @@ document.addEventListener("keydown", function(event) {
 
     const [rowChange, colChange] = directions[key];
 
-    const moved = movePlayer(rowChange, colChange);
+    handleMovement(rowChange, colChange);
+});
 
-    if (moved) {
-        updateGame(elements);
-        if (isEnemyCaughtPlayer()) {
-            showOverlay();
-            playSound("lost");
-            console.log(state.player,state.enemy);
-        }
-    }   
+//Button 
+const directions = {
+    up: [-1, 0],
+    down: [1, 0],
+    left: [0, -1],
+    right: [0, 1]
+};
+
+Object.entries(directions).forEach(([id, direction]) => {
+    document.getElementById(id).addEventListener("click", () => {
+        handleMovement(...direction);
+    });
+});
+
+//Show Buttons
+elements.showButtons.addEventListener("click", function() {
+
+    elements.showButtons.textContent =
+        elements.showButtons.textContent === "Show" ? "Hide" : "Show";
+
+    [left, right, up, down].forEach(button => {
+        button.classList.toggle("hidden");
+    });
+
 });
 
 // Restart
