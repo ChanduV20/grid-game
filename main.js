@@ -19,7 +19,7 @@ export const elements = {
     left: document.getElementById("left"),
     right: document.getElementById("right"),
     up: document.getElementById("up"),
-    down: document.getElementById("left"),
+    down: document.getElementById("down"),
 };
 
 export function showOverlay(){
@@ -28,7 +28,7 @@ export function showOverlay(){
     overlay.id = "caughtOverlay";
 
     const img = document.createElement("img");
-    img.src = "game\\images\\caught.png";
+    img.src = "game/images/caught.png";
     img.alt = "Game Over";
 
     overlay.appendChild(img);
@@ -90,7 +90,7 @@ elements.showButtons.addEventListener("click", function() {
     elements.showButtons.textContent =
         elements.showButtons.textContent === "Show" ? "Hide" : "Show";
 
-    [left, right, up, down].forEach(button => {
+    [elements.left, elements.right, elements.up, elements.down].forEach(button => {
         button.classList.toggle("hidden");
     });
 
