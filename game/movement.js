@@ -1,7 +1,7 @@
 
 import { state } from "./state.js";
 import { playSound } from "./audio.js";
-import { isEnemyCaughtPlayer, moveEnemy } from "./enemy.js";
+import { moveEnemy } from "./enemy.js";
 import { isInsideGrid, isBlocked, isBox, isLockedDoor, isEnemy } from "./collision.js";
 import { drawGrid } from "./grid.js";
 
@@ -217,8 +217,7 @@ export function movePlayer(rowChange, colChange) {
 
             state.highlightTimer = setTimeout(() => {
                 state.highlightCells = [];
-                drawGrid(grid);
-            }, 200);
+            }, 1000);
 
             // Teleport player
             newRow = destination.row;

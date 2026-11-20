@@ -1,15 +1,11 @@
-
 import { movePlayer } from "./game/movement.js";
-
 import {
     loadLevel,
     updateGame,
     nextLevel,
     restartLevel
 } from "./game/gameManager.js";
-
 import { state } from "./game/state.js";
-
 import { isEnemyCaughtPlayer } from "./game/enemy.js";
 import { playSound } from "./game/audio.js";
 
@@ -23,15 +19,15 @@ export const elements = {
 
 export function showOverlay(){
     state.lost = true;
-            const overlay = document.createElement("div");
-            overlay.id = "caughtOverlay";
+    const overlay = document.createElement("div");
+    overlay.id = "caughtOverlay";
 
-            const img = document.createElement("img");
-            img.src = "game\\images\\caught.png";
-            img.alt = "Game Over";
+    const img = document.createElement("img");
+    img.src = "game\\images\\caught.png";
+    img.alt = "Game Over";
 
-            overlay.appendChild(img);
-            elements.grid.appendChild(overlay);
+    overlay.appendChild(img);
+    elements.grid.appendChild(overlay);
 }
 // Keyboard controls
 document.addEventListener("keydown", function(event) {
@@ -58,6 +54,7 @@ document.addEventListener("keydown", function(event) {
         if (isEnemyCaughtPlayer()) {
             showOverlay();
             playSound("lost");
+            console.log(state.player,state.enemy);
         }
     }   
 });

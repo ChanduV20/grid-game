@@ -9,7 +9,8 @@ function getNeighborCells() {
         let u = state.enemy.row + dxy[i][0];
         let v = state.enemy.col + dxy[i][1];
         if (isValidMove(u,v)) {
-            let val = Math.abs(state.player.row - u) + Math.abs(state.player.col - v);
+            let val = Math.abs(state.player.row - u) + 
+            Math.abs(state.player.col - v);
             priority.push([val,u,v]);
         }
     }
@@ -18,7 +19,8 @@ function getNeighborCells() {
 }
 
 function isValidMove(row, col) {
-    if (isInsideGrid(row,col) && !isBox(row,col) && !isBlocked(row,col) && !isLockedDoor(row,col)){
+    if (isInsideGrid(row,col) && !isBox(row,col) && 
+    !isBlocked(row,col) && !isLockedDoor(row,col)){
         return true;
     }return false;
 }
@@ -28,7 +30,7 @@ export function moveEnemy() {
     const [newRow,newCol] = getNeighborCells();
     state.enemy.row = newRow ;
     state.enemy.col = newCol ;
-    return;
+    return true;
 }
 
 export function isEnemyCaughtPlayer(){
