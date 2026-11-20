@@ -16,11 +16,21 @@
         <h3 id="count">Number of steps : 0</h3>
         <button id="restart">Restart</button>
         <button id="nextLevel">Next Level</button>
-        <br>
-        <button id="left" class="hidden">⬅</button>
-        <button id="right" class="hidden">➡</button>
-        <button id="up" class="hidden">⬆</button>
-        <button id="down" class="hidden">⬇</button>
+
+        <div class="dpad">
+            <button id="up" class="dpad-up hidden">
+                <span class="dpad-arrow">⬆</span>
+            </button>
+            <button id="left" class="dpad-left hidden">
+                <span class="dpad-arrow">⬅</span>
+            </button>
+            <button id="right" class="dpad-right hidden">
+                <span class="dpad-arrow">➡</span>
+            </button>
+            <button id="down" class="dpad-down hidden">
+                <span class="dpad-arrow">⬇</span>
+            </button>
+        </div>
     </div>
 
     <script type="module" src="./main.js"></script>

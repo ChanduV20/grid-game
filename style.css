@@ -7,7 +7,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    max-height: 100vh;
 }
 
 :root {
@@ -20,13 +19,14 @@
 }
 
 body {
-    max-height: 100vh;
+    min-height: 100vh;
+    min-height: 100dvh;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    padding: 25px 15px;
+    padding: clamp(12px, 4vw, 25px) clamp(10px, 3vw, 15px);
 
     font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
 
@@ -44,7 +44,7 @@ body {
 
 .game-container {
     width: min(100%, 650px);
-    padding: 30px;
+    padding: clamp(16px, 4vw, 30px);
 
     background: var(--panel);
 
@@ -64,9 +64,9 @@ body {
 
 h1 {
     font-family: 'Press Start 2P', cursive;
-    font-size: 35px; 
+    font-size: clamp(18px, 5vw, 35px);
     font-weight: 1000;
-    letter-spacing: 2px;
+    letter-spacing: clamp(1px, 0.4vw, 2px);
 
     margin-bottom: 10px;
 
@@ -365,7 +365,7 @@ h1 {
 
     color: #57834b;
 
-    font-size: 15px;
+    font-size: clamp(12px, 3vw, 15px);
     font-weight: 800;
 
     box-shadow: 0 3px 0 #c3d8ad;
@@ -439,7 +439,66 @@ button:active {
 }
 
 /* =========================================
-   15. RESPONSIVE DESIGN
+    15. DIRECTION PAD
+========================================= */
+
+.dpad {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+
+    gap: clamp(4px, 1.5vw, 8px);
+    width: min(100%, 240px);
+
+    margin: clamp(12px, 3vw, 20px) auto 0;
+}
+
+.dpad button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2px;
+
+    width: 100%;
+    aspect-ratio: 1;
+
+    padding: 4px;
+    margin: 0;
+
+    border-radius: clamp(8px, 2vw, 12px);
+
+    font-size: clamp(11px, 2.5vw, 14px);
+}
+
+.dpad button.hidden {
+    display: none;
+}
+
+.dpad-arrow {
+    font-size: clamp(18px, 5vw, 26px);
+    line-height: 1;
+}
+
+.dpad-up {
+    grid-area: 1 / 2;
+}
+
+.dpad-left {
+    grid-area: 2 / 1;
+}
+
+.dpad-right {
+    grid-area: 2 / 3;
+}
+
+.dpad-down {
+    grid-area: 3 / 2;
+}
+
+/* =========================================
+    16. RESPONSIVE DESIGN
 ========================================= */
 
 @media (max-width: 600px) {
@@ -461,6 +520,54 @@ button:active {
     button {
         padding: 10px 16px;
         font-size: 13px;
+    }
+
+    .dpad {
+        width: min(100%, 200px);
+    }
+}
+
+/* =========================================
+    17. NO SCROLL ON BIG SCREENS
+========================================= */
+
+@media (min-width: 601px) {
+
+    html,
+    body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        height: 100dvh;
+    }
+
+    h1 {
+        margin-bottom: 6px;
+    }
+
+    #grid {
+        width: min(100%, 500px, calc(100vh - 420px));
+        width: min(100%, 500px, calc(100dvh - 420px));
+        margin-bottom: clamp(8px, 2vh, 18px);
+    }
+
+    #message {
+        margin: 8px 0 12px;
+    }
+
+    #count {
+        padding: 8px 18px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        margin: 3px;
+    }
+
+    .dpad {
+        margin-top: 10px;
     }
 }
 
