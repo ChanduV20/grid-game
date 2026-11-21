@@ -1,24 +1,14 @@
-
 import { state } from "./state.js";
+import { updatePressurePlate } from "./movement.js";
 
 export function drawGrid(grid) {
     grid.innerHTML = "";
-
+    updatePressurePlate();
     for (let row = 0; row < state.SIZE; row++) {
         for (let col = 0; col < state.SIZE; col++) {
 
             const cell = document.createElement("div");
             cell.className = "cell";
-
-            const isBlocked = state.block.some(
-                item => item.row === row && item.col === col
-            );
-
-            if (isBlocked) {
-                cell.classList.add("block");
-                grid.appendChild(cell);
-                continue;
-            }
 
             const hasBox = state.box.some(
                 item => item.row === row && item.col === col
@@ -26,6 +16,16 @@ export function drawGrid(grid) {
 
             if (hasBox) {
                 cell.classList.add("box");
+                grid.appendChild(cell);
+                continue;
+            }
+
+            const isBlocked = state.block.some(
+                item => item.row === row && item.col === col
+            );
+
+            if (isBlocked) {
+                cell.classList.add("block");
                 grid.appendChild(cell);
                 continue;
             }
@@ -38,20 +38,36 @@ export function drawGrid(grid) {
                 cell.classList.add("highlight");
             }
 
+            if (
+                row === state.pressurePlate[0].row &&
+                col === state.pressurePlate[0].col
+            ) {
+                cell.classList.add("pressurePlate");
+            }
+
+            if (
+                row === state.pressurePlate[1].row &&
+                col === state.pressurePlate[1].col &&
+                !state.onPressure
+            ) {
+                cell.classList.add("block");
+            }
+
             if (row === state.player.row && col === state.player.col) {
                 cell.textContent = "🙂";
                 cell.classList.add("player");
-                
+
             } else if (row === state.goal.row && col === state.goal.col) {
                 cell.textContent = "⭐";
                 cell.classList.add("goal");
-                
-            } else if( 
+
+            } else if (
                 state.enemy.row === row &&
                 state.enemy.col === col
-            ){
+            ) {
                 cell.textContent = "👮🏻";
-            }else if (
+
+            } else if (
                 row === state.key[0].row &&
                 col === state.key[0].col &&
                 state.lock === false
@@ -84,8 +100,8 @@ export function drawGrid(grid) {
                 if (val >= 0) {
                     cell.textContent = val;
                 }
-
             }
+
             grid.appendChild(cell);
         }
     }

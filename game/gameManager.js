@@ -18,6 +18,8 @@ export function loadLevel(elements) {
     drawGrid(elements.grid);
 }
 
+
+
 export function updateGame(elements) {
     elements.count.textContent =
         "Number of steps: " + state.counter;

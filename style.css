@@ -7,6 +7,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    max-height: 100vh;
 }
 
 :root {
@@ -19,14 +20,13 @@
 }
 
 body {
-    min-height: 100vh;
-    min-height: 100dvh;
+    max-height: 100vh;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    padding: clamp(12px, 4vw, 25px) clamp(10px, 3vw, 15px);
+    padding: 25px 15px;
 
     font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
 
@@ -44,7 +44,7 @@ body {
 
 .game-container {
     width: min(100%, 650px);
-    padding: clamp(16px, 4vw, 30px);
+    padding: 30px;
 
     background: var(--panel);
 
@@ -64,9 +64,9 @@ body {
 
 h1 {
     font-family: 'Press Start 2P', cursive;
-    font-size: clamp(18px, 5vw, 35px);
+    font-size: 35px; 
     font-weight: 1000;
-    letter-spacing: clamp(1px, 0.4vw, 2px);
+    letter-spacing: 2px;
 
     margin-bottom: 10px;
 
@@ -365,7 +365,7 @@ h1 {
 
     color: #57834b;
 
-    font-size: clamp(12px, 3vw, 15px);
+    font-size: 15px;
     font-weight: 800;
 
     box-shadow: 0 3px 0 #c3d8ad;
@@ -439,8 +439,35 @@ button:active {
 }
 
 /* =========================================
-    15. DIRECTION PAD
+   15. RESPONSIVE DESIGN
 ========================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .game-container {
+        padding: 18px 12px;
+        border-radius: 18px;
+    }
+
+    #grid {
+        gap: 3px;
+        padding: 5px;
+    }
+
+    button {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}
+
+.cell.highlight {
+    background: rgb(145, 129, 129) !important;
+    border: 2px solid rgb(255, 0, 0);
+}
 
 .dpad {
     display: grid;
@@ -495,87 +522,4 @@ button:active {
 
 .dpad-down {
     grid-area: 3 / 2;
-}
-
-/* =========================================
-    16. RESPONSIVE DESIGN
-========================================= */
-
-@media (max-width: 600px) {
-
-    body {
-        padding: 12px;
-    }
-
-    .game-container {
-        padding: 18px 12px;
-        border-radius: 18px;
-    }
-
-    #grid {
-        gap: 3px;
-        padding: 5px;
-    }
-
-    button {
-        padding: 10px 16px;
-        font-size: 13px;
-    }
-
-    .dpad {
-        width: min(100%, 200px);
-    }
-}
-
-/* =========================================
-    17. NO SCROLL ON BIG SCREENS
-========================================= */
-
-@media (min-width: 601px) {
-
-    html,
-    body {
-        height: 100%;
-        overflow: hidden;
-    }
-
-    body {
-        height: 100dvh;
-    }
-
-    h1 {
-        margin-bottom: 6px;
-    }
-
-    #grid {
-        width: min(100%, 500px, calc(100vh - 420px));
-        width: min(100%, 500px, calc(100dvh - 420px));
-        margin-bottom: clamp(8px, 2vh, 18px);
-    }
-
-    #message {
-        margin: 8px 0 12px;
-    }
-
-    #count {
-        padding: 8px 18px;
-        margin-bottom: 10px;
-    }
-
-    button {
-        margin: 3px;
-    }
-
-    .dpad {
-        margin-top: 10px;
-    }
-}
-
-.cell.highlight {
-    background: rgb(145, 129, 129) !important;
-    border: 2px solid rgb(255, 0, 0);
-}
-
-.hidden {
-    display: none;
 }

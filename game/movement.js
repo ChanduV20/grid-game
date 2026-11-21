@@ -3,7 +3,6 @@ import { state } from "./state.js";
 import { playSound } from "./audio.js";
 import { moveEnemy } from "./enemy.js";
 import { isInsideGrid, isBlocked, isBox, isLockedDoor, isEnemy } from "./collision.js";
-import { drawGrid } from "./grid.js";
 
 // Check Jump power lands on goal 
 function isGoal(row, col){
@@ -58,6 +57,36 @@ function collectItems() {
         state.powerUp.isHere = false;
         state.hasPower = true;
         playSound("powerup");
+    }
+}
+
+export function updatePressurePlate() {
+    let isPressed = state.box.some(
+        item =>
+            item.row === state.pressurePlate[0].row &&
+            item.col === state.pressurePlate[0].col
+    );
+    isPressed = ((isPressed) || (state.player.row === state.pressurePlate[0].row &&
+        state.player.col === state.pressurePlate[0].col
+    ));
+
+    state.onPressure = isPressed;
+
+    const blockIndex = state.block.findIndex(
+        item =>
+            item.row === state.pressurePlate[1].row &&
+            item.col === state.pressurePlate[1].col
+    );
+
+    if (isPressed && blockIndex > -1) {
+        state.block.splice(blockIndex, 1);
+    }
+
+    if (!isPressed && blockIndex === -1) {
+        state.block.push({
+            row: state.pressurePlate[1].row,
+            col: state.pressurePlate[1].col
+        });
     }
 }
 
@@ -169,6 +198,7 @@ export function movePlayer(rowChange, colChange) {
         state.box[boxIndex].col = newBoxCol;
 
         pushedBox = true;
+        updatePressurePlate();
     }
 
     

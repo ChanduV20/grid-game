@@ -9,19 +9,15 @@ export const levels = [
         player: { row: 0, col: 0 },
         goal: { row: 7, col: 7 },
         blocks:[
-            {row:2,col:2},{row:5,col:5},{row:0,col:3},
-            {row:3,col:5},{row:6,col:2},{row:6,col:4},
-            {row:7,col:6}
+            {row:2,col:2},{row:5,col:5},{row:0,col:3},{row:6,col:2},
+            {row:6,col:4},{row:7,col:6}
         ],
         boxes: [
-            {row:4,col:2},{row:3,col:5},{row:2,col:1},
-            {row:2,col:0},{row:1,col:3},{row:4,col:7},
-            {row:5,col:6},{row:3,col:6},{row:1,col:4}
+            {row:4,col:2},{row:3,col:5},{row:2,col:1},{row:2,col:0},
+            {row:1,col:3},{row:5,col:6},{row:3,col:6}
         ],
-        traps: [
-            {row:3,col:1},{row:3,col:7},{row:4,col:6},
-            {row:7,col:0}
-        ]
+        traps: [],
+        pressurePlate: [{row:1,col:5},{row:4,col:7}]
     },
     {
         size: 8,
@@ -33,14 +29,13 @@ export const levels = [
         player: { row: 0, col: 0 },
         goal: { row: 7, col: 7 },
         blocks: [
-            {row:2,col:2},{row:5,col:5},{row:0,col:3},
-            {row:3,col:5},{row:6,col:2},{row:6,col:4},
-            {row:7,col:6}
+            {row:2,col:2},{row:5,col:5},{row:0,col:3},{row:3,col:5},
+            {row:6,col:2},{row:6,col:4},{row:7,col:6}
         ],
         boxes: [],
         traps: [
-            {row:3,col:1},{row:3,col:7},{row:4,col:6},
-            {row:7,col:0}
-        ]
+            {row:3,col:1},{row:3,col:7},{row:4,col:6},{row:7,col:0}
+        ],
+        pressurePlate: [{row:1,col:5},{row:4,col:7}]
     }
 ];
